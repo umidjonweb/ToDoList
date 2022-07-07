@@ -1,30 +1,51 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
-</template>
+<navbar :showModal="showModal" />
+<div>
+   <modal v-model:show="modalVisible">
+   
+   </modal>
+<headers />
+<footers :comments="comments" @remove="removeComment"/>
+</div>
+</template>          
+<script>
+import footers from './components/footer.vue'
+import navbar from './components/Navbar.vue'
+import modal from './components/Modal.vue'
+import headers from './components/header.vue'
+export default {
+  components: { 
+    footers,
+    navbar,
+    modal,
+    headers,
+  },
+  data() {
+     return {
+        comments:[],
+        modalVisible:false
+     }
+     },
+     methods: {
+        xodisa (comment){
+this.comments.push(comment)
+this.modalVisible=false;   
+        },
+        removeComment(izzatillo){  
+        console.log(izzatillo)
+        this.comments=this.comments.filter(c=> c.id !== izzatillo.id)
+        console.log(this.input.value)
+
+        },
+        showModal(){
+this.modalVisible=true;
+        }
+     }
+  
+   
+}
+</script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
 </style>
